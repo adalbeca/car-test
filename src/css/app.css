@@ -5,13 +5,13 @@
     cursor: pointer;
 }
 .add-icon {
-    background: url("../img/plus.svg") no-repeat;
+    background: url("../assets/plus.svg") no-repeat;
 }
 .edit-icon {
-    background: url("../img/pencil.svg")  no-repeat;
+    background: url("../assets/pencil.svg")  no-repeat;
 }
 .trash-icon {
-    background: url("../img/trashcan.svg")  no-repeat;
+    background: url("../assets/trashcan.svg")  no-repeat;
 }
 .width-expand {
     width: 100% !important;

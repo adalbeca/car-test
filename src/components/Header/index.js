@@ -1,6 +1,6 @@
 import React from 'react';
 import {Container, Row, Col} from 'reactstrap';
-import logo from '../../img/react.png'
+import logo from '../../assets/react.png'
 export default class Header extends React.Component {
     render() {
         return (

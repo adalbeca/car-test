@@ -8,25 +8,27 @@ import {
 } from 'reactstrap';
 
 export default class Body extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            data: []
-        };
-    }
+    state = {
+        listData: [],
+        url: "https://car-api-novatech.herokuapp.com/api/",
+    };
 
-    componentDidMount() {
-        fetch('https://car-api-novatech.herokuapp.com/api/', {
+    fetchData = () => {
+        fetch(this.state.url, {
             method: 'GET'
         })
             .then(response => response.json())
             .then(data => {
-                this.setState({data: data.message})
+                this.setState({ listData: data.message })
             });
+    };
+
+    componentDidMount() {
+        this.fetchData();
     }
 
     render() {
-        const listData = this.state.data;
+        const { listData } = this.state;
         return (
             <Container fluid className="p-5">
                 <Row>
@@ -45,7 +47,7 @@ export default class Body extends React.Component {
                             </thead>
                             <tbody>
                             {
-                                listData.map((item) => {
+                                listData.map(item => {
                                     return (
                                         <tr key={item._id}>
                                             <td>{item.make}</td>
