@@ -1,16 +1,19 @@
 import React from 'react';
+import DelCar from '../DelCar';
 import {
     Container,
     Row,
     Col,
-    Table,
-    Button
+    Table, Button
 } from 'reactstrap';
+import Register from '../RegisterCar';
 
 export default class Body extends React.Component {
     state = {
         listData: [],
         url: "https://car-api-novatech.herokuapp.com/api/",
+        modal: false,
+        isSubmitted:false,
     };
 
     fetchData = () => {
@@ -19,18 +22,34 @@ export default class Body extends React.Component {
         })
             .then(response => response.json())
             .then(data => {
-                this.setState({ listData: data.message })
+                this.setState({listData: data.message})
             });
     };
+
+    toggle = () => {
+        this.setState(prevState => ({
+            modal: !prevState.modal
+        }));
+    };
+
+    handleSubmit = () => {
+        this.setState(prevState => ({
+            isSubmitted: !prevState.isSubmitted})
+        )};
 
     componentDidMount() {
         this.fetchData();
     }
 
     render() {
-        const { listData } = this.state;
+        if(this.state.isSubmitted){
+            this.fetchData();
+        }
+        const {listData} = this.state;
         return (
             <Container fluid className="p-5">
+                <Button color="danger" onClick={this.toggle} className="mb-3"> ADD CAR </Button>
+                <Register modal={this.state.modal} toggle={this.toggle} url={ this.state.url } handler={ this.handleSubmit }/>
                 <Row>
                     <Col>
                         <Table hover>
@@ -45,7 +64,7 @@ export default class Body extends React.Component {
                                 <th>Actions</th>
                             </tr>
                             </thead>
-                            <tbody>
+                            <tbody >
                             {
                                 listData.map(item => {
                                     return (
@@ -59,7 +78,8 @@ export default class Body extends React.Component {
                                             <td>
                                                 <div className="d-flex flex-row">
                                                     <span className="mr-1 edit-icon icon-crud"/>
-                                                    <span className="mr-1 trash-icon icon-crud"/>
+                                                    <DelCar id={item._id}/>
+
                                                 </div>
                                             </td>
                                         </tr>
