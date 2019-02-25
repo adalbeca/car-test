@@ -1,0 +1,30 @@
+.icon-crud {
+    width: 20px;
+    height: 20px;
+    padding: 0 5px;
+    cursor: pointer;
+}
+.add-icon {
+    background: url("../assets/plus.svg") no-repeat;
+}
+.edit-icon {
+    background: url("../assets/pencil.svg")  no-repeat;
+}
+.trash-icon {
+    background: url("../assets/trashcan.svg")  no-repeat;
+}
+.width-expand {
+    width: 100% !important;
+}
+.width-90 {
+    width: 90% !important;
+}
+.width-50 {
+    width: 50% !important;
+}
+.height-50 {
+    height: 50px !important;
+}
+.height-200 {
+    height: 200px !important;
+}
