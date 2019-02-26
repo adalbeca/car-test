@@ -13,7 +13,17 @@ export default class Body extends React.Component {
         listData: [],
         url: "https://car-api-novatech.herokuapp.com/api/",
         modal: false,
-        isSubmitted:false,
+        isSubmitted: false,
+    };
+
+    deleteRow = (id) => {
+        fetch(this.state.url + '/' + id, {
+            method: 'DELETE'
+        })
+            .then(response => response.json())
+            .then(datax => {
+                this.handleSubmit();
+            });
     };
 
     fetchData = () => {
@@ -34,22 +44,25 @@ export default class Body extends React.Component {
 
     handleSubmit = () => {
         this.setState(prevState => ({
-            isSubmitted: !prevState.isSubmitted})
-        )};
+                isSubmitted: !prevState.isSubmitted
+            })
+        )
+    };
 
     componentDidMount() {
         this.fetchData();
     }
 
     render() {
-        if(this.state.isSubmitted){
+        if (this.state.isSubmitted) {
             this.fetchData();
         }
         const {listData} = this.state;
         return (
             <Container fluid className="p-5">
                 <Button color="danger" onClick={this.toggle} className="mb-3"> ADD CAR </Button>
-                <Register modal={this.state.modal} toggle={this.toggle} url={ this.state.url } handler={ this.handleSubmit }/>
+                <Register modal={this.state.modal} toggle={this.toggle} url={this.state.url}
+                          handler={this.handleSubmit}/>
                 <Row>
                     <Col>
                         <Table hover>
@@ -64,7 +77,7 @@ export default class Body extends React.Component {
                                 <th>Actions</th>
                             </tr>
                             </thead>
-                            <tbody >
+                            <tbody>
                             {
                                 listData.map(item => {
                                     return (
@@ -78,8 +91,7 @@ export default class Body extends React.Component {
                                             <td>
                                                 <div className="d-flex flex-row">
                                                     <span className="mr-1 edit-icon icon-crud"/>
-                                                    <DelCar id={item._id}/>
-
+                                                    <DelCar id={item._id} handleDelete={this.deleteRow}/>
                                                 </div>
                                             </td>
                                         </tr>
